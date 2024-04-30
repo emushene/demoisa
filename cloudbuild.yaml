@@ -7,7 +7,7 @@ steps:
 #   args: ['run', 'build']
 
   # Deploy
-  - name: 'gcr.io/demoisa-fe861/firebase:latest'
+  - name: 'gcr.io/demoisa-fe861/firebase'
     args: ['deploy']
   ##
   ##
