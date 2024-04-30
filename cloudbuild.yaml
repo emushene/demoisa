@@ -4,14 +4,14 @@ steps:
     args: ['install'] 
 
 # Test
-#  - name: 'gcr.io/cloud-builders/npm'
-#    args: ['run', 'test:unit']
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'test:unit']
 
 # Build
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'build']
 
   # Deploy
-  - name: 'gcr.io/firebase-tools'
-    args: ['firebase', 'deploy', '--token', '$_FIREBASE_TOKEN']
-  ###
+  - name: 'gcr.io/demoisa-fe861/firebase'
+    args: ['deploy','--project=demoisa-fe861', '--only=hosting']
+  
