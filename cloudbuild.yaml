@@ -10,4 +10,4 @@ steps:
   - name: 'gcr.io/demoisa-fe861/firebase'
     args: ['deploy', '--project=demoisa-fe861', '--only=hosting']
   ##
-  ##
+  ###
