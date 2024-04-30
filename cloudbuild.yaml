@@ -12,6 +12,6 @@ steps:
     args: ['run', 'build']
 
   # Deploy
-  - name: 'gcr.io/$PROJECT_ID/firebase'
-    args: ['deploy']
+  - name: 'gcr.io/firebase-tools'
+    args: ['firebase', 'deploy', '--token', '$_FIREBASE_TOKEN']
   ###
