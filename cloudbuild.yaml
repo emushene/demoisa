@@ -7,6 +7,6 @@ steps:
     args: ['run', 'build']
 
   # Deploy
-  - name: 'gcr.io/demoisa-fe861/firebase'
+  - name: 'gcr.io/$PROJECT_ID/firebase'
     args: ['deploy','--project=demoisa-fe861', '--only=hosting']
   
