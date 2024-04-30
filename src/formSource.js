@@ -3,25 +3,25 @@ export const userInputs = [
       id: "userName",
       label: "Username",
       type: "text",
-      placeholder: "john_doe",
+      placeholder: "ledamaolekina",
     },
     {
       id: "displayName",
       label: "Name and surname",
       type: "text",
-      placeholder: "John Doe",
+      placeholder: "Ledama Ole Kina",
     },
     {
       id: "email",
       label: "Email",
       type: "mail",
-      placeholder: "john_doe@gmail.com",
+      placeholder: "chairmane@gmail.com",
     },
     {
       id: "phoneNumber",
       label: "Phone",
       type: "text",
-      placeholder: "+1 234 567 89",
+      placeholder: "+27 84 000 0000",
     },
     {
       id: "password",
@@ -32,7 +32,7 @@ export const userInputs = [
       id: "address",
       label: "Address",
       type: "text",
-      placeholder: "Elton St. 216 NewYork",
+      placeholder: "216 Voor Trecker Rd. Klerksdorp",
     },
     {
       id: "location",
@@ -40,6 +40,29 @@ export const userInputs = [
       type: "text",
       placeholder: "Gauteng",
     },
+  ];
+  
+  export const familyInputs = [
+ 
+    {
+      id: "familyMemberName",
+      label: "Name and surname",
+      type: "text",
+      placeholder: "Ledama Ole Kina",
+    },
+    {
+      id: "familyMemberAge",
+      label: "Age",
+      type: "date",
+      placeholder: "2005-06-17",
+    },
+    {
+      id: "relation",
+      label: "Relation to Member",
+      type: "text",
+      placeholder: "Sister, Brother, Father",
+    },
+
   ];
   
   export const productInputs = [

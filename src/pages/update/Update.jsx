@@ -1,72 +1,32 @@
-import "./new.scss";
+import "./update.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
 import {
   collection,
-  addDoc,
+  doc,
+  updateDoc,
   Timestamp,
   serverTimestamp,
-  setDoc,
-  doc,
 } from "firebase/firestore";
 import { auth, db, storage } from "../../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 
-const New = ({ inputs, title }) => {
+const Update = ({ inputs, title, itemId }) => {
   const [file, setFile] = useState("");
   const [data, setData] = useState({});
   const [perce, setPerce] = useState(null);
   const navigate = useNavigate()
 
   useEffect(() => {
-    const uploadFile = () => {
-      const name = new Date().getTime() + file.name;
-      const storageRef = ref(storage, file.name);
-
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      // Register three observers:
-      // 1. 'state_changed' observer, called any time the state changes
-      // 2. Error observer, called on failure
-      // 3. Completion observer, called on successful completion
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          // Observe state change events such as progress, pause, and resume
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
-          setPerce(progress);
-          switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
-              break;
-            case "running":
-              console.log("Upload is running");
-              break;
-              default:
-              break;
-          }
-        },
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          // Handle successful uploads on complete
-          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setData((prev)=>({...prev, img:downloadURL}))
-          });
-        }
-      );
+    const fetchItemData = async () => {
+      const itemRef = doc(db, "items", itemId);
+      const itemData = await itemRef.get();
+      setData(itemData.data());
     };
-    file && uploadFile();
-  }, [file]);
+    fetchItemData();
+  }, [itemId]);
 
   const handleInput = (e) => {
     e.preventDefault();
@@ -80,16 +40,11 @@ const New = ({ inputs, title }) => {
   const handleAddNew = async (e) => {
     e.preventDefault();
     try {
-      const resp = await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
-      await setDoc(doc(db, "users", resp.user.uid), {
+      await updateDoc(doc(db, "items", itemId), {
         ...data,
         Timestamp: serverTimestamp(),
       });
-      //redirect to empty after addign new Member/user
+      //redirect to empty after updating
       navigate(-1)
     } catch (err) {
       console.log(err);
@@ -97,9 +52,9 @@ const New = ({ inputs, title }) => {
   };
 
   return (
-    <div className="new">
+    <div className="update">
       <Sidebar />
-      <div className="newContainer">
+      <div className="updateContainer">
         <Navbar />
         <div className="top">
           <h1>{title}</h1>
@@ -129,8 +84,6 @@ const New = ({ inputs, title }) => {
                 />
               </div>
 
-              
-
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
@@ -138,23 +91,18 @@ const New = ({ inputs, title }) => {
                     id={input.id}
                     type={input.type}
                     placeholder={input.placeholder}
+                    value={data[input.id]}
                     onChange={handleInput}
                   />
                 </div>
               ))}
-              
-              <button disabled={perce !== null && perce < 100} type="submit">Send</button>
+              <button disabled={perce !== null && perce < 100} type="submit">Update</button>
             </form>
           </div>
-          
         </div>
-        
       </div>
-      
-      
     </div>
-    
   );
 };
 
-export default New;
+export default Update;
