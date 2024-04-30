@@ -8,5 +8,5 @@ steps:
 
   # Deploy
   - name: 'gcr.io/$PROJECT_ID/firebase'
-    args: ['deploy','--project=demoisa-fe861', '--only=hosting']
+    args: ['deploy','project_id=$PROJECT_ID', '--only=hosting']
   #
