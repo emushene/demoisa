@@ -15,5 +15,5 @@
 # [START cloudbuild_firebase_deploy]
 steps: 
 - name: gcr.io/$PROJECT_ID/firebase
-  args: ['deploy', '--only', 'hosting']
+  args: ['deploy', '--only=hosting']
 # [END cloudbuild_firebase_deploy]#
