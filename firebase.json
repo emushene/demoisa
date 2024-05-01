@@ -5,7 +5,7 @@
   },
   "hosting": {
     "public": "build",
-    "target": "https://demoisa-fe861.web.app/",
+    "target": "demoisa-fe861.web.app/",
     "ignore": [
       "firebase.json",
       "**/.*",
