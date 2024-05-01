@@ -5,11 +5,13 @@
   },
   "hosting": {
     "public": "build",
+    "target": "https://demoisa-fe861.web.app/",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ]
+    
   },
   "storage": {
     "rules": "storage.rules"
