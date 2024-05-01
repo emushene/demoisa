@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "demoisa-fe861"
-  }
+  },
+  "targets": {
+    "demoisa-fe861": {
+      "hosting": {
+        "default": [
+          "."
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
