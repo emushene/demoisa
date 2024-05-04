@@ -1,4 +1,5 @@
 import "./single.scss";
+import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
@@ -12,6 +13,12 @@ const Single = () => {
   const { id } = useParams(); // Extract the ID from the URL
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
+  //  const [inputs, setinputs] = useState();
+  const [file, setFile] = useState("");
+  const [perce, setPerce] = useState(null);
+
+  const handleInput = (e)=>{ e.preventDefault();}
+  const handleAddNew = (e)=>{e.preventDefault()}
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,7 +52,7 @@ const Single = () => {
         <div className="top">
           <div className="left">
             <div className="editButton">Edit</div>
-            <h1 className="title">Information</h1>
+            <h1 className="title">Personal Details</h1>
             {error ? (
               <p>Error: {error}</p>
             ) : userData ? (
@@ -80,11 +87,30 @@ const Single = () => {
             )}
           </div>
           <div className="right">
-            <Chart aspect={3 / 1} title="User Spending ( Last 6 Months)" />
+            <Chart aspect={3 / 1} title="Member speding ( Last 6 Contributions)" />
           </div>
         </div>
         <div className="bottom">
-          <h1 className="title">Last Transactions</h1>
+          <h1 className="title">Add Beneficiary</h1>
+          <p className="listTitle">Note that you can only have close Family members in your cover. No extended family</p>
+           <form onSubmit={handleAddNew}>
+                     
+
+              {((input) => (
+                <div className="formInput" key={input.id}>
+                  <label>{input.label}</label>
+                  <input
+                    id={input.id}
+                    type={input.type}
+                    placeholder={input.placeholder}
+                    onChange={handleInput}
+                  />
+                </div>
+              ))}
+              
+              <button disabled={perce !== null && perce < 100} type="submit">Submit</button>
+            </form><form action=""></form>
+          <h1 className="title">Member Covered Beneficiary</h1>
           <List />
         </div>
       </div>
