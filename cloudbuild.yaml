@@ -16,4 +16,6 @@
 steps: 
 - name: 'gcr.io/$PROJECT_ID/firebase'
   args: ['deploy', '--only=hosting']
-# [END cloudbuild_firebase_deploy]#
+# [END cloudbuild_firebase_deploy]##
+
+#
