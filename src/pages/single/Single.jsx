@@ -1,24 +1,60 @@
 import "./single.scss";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+//import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
 import List from "../../components/table/Table";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, addDoc, collection, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../firebase';
 
-const Single = () => {
+const Single = ({ inputs, title }) => {
   const { id } = useParams(); // Extract the ID from the URL
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
-  //  const [inputs, setinputs] = useState();
-  const [file, setFile] = useState("");
-  const [perce, setPerce] = useState(null);
+  const [data, setData] = useState({})
 
-  const handleInput = (e)=>{ e.preventDefault();}
-  const handleAddNew = (e)=>{e.preventDefault()}
+
+  const handleInput = (e) => {
+    e.preventDefault();
+
+    const id = e.target.id;
+    const value = e.target.value;
+
+    setData({ ...data, [id]: value });
+   
+  };
+
+const handleAddFam = async (event) => {
+  event.preventDefault(); // Prevent default form submission behavior
+    
+  try {
+
+ 
+
+    // Create a new document in the "familyData" collection
+    const newDocRef = await addDoc(collection(db, 'familyData'), {
+      ...data,
+      Timestamp: serverTimestamp() // Add a timestamp field
+            
+    });
+    // navigate(-1)
+    // Link the new data to the existing user by updating the user document
+    const userDocRef = doc(db, 'users', id);
+    await updateDoc(userDocRef, {
+      familyDataId: newDocRef.id // Store the ID of the new document in the user document
+      
+    });
+     setData({});
+    console.log("New data added and linked to user successfully!");
+  } catch (error) {
+    console.error("Error adding data and linking to user: ", error);
+    setError('Failed to submit the form. Please try again later.');
+  }
+
+   
+};
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,29 +123,31 @@ const Single = () => {
             )}
           </div>
           <div className="right">
-            <Chart aspect={3 / 1} title="Member speding ( Last 6 Contributions)" />
+            <Chart aspect={3 / 1} title="Member contributions ( Last 6 Contributions)" />
           </div>
         </div>
         <div className="bottom">
-          <h1 className="title">Add Beneficiary</h1>
+          <h1 className="title">{title}</h1>
           <p className="listTitle">Note that you can only have close Family members in your cover. No extended family</p>
-           <form onSubmit={handleAddNew}>
-                     
-
-              {((input) => (
-                <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
-                  <input
-                    id={input.id}
-                    type={input.type}
-                    placeholder={input.placeholder}
-                    onChange={handleInput}
-                  />
-                </div>
-              ))}
-              
-              <button disabled={perce !== null && perce < 100} type="submit">Submit</button>
-            </form><form action=""></form>
+          
+          <form onSubmit={handleAddFam} className="benefitForm">
+            {inputs.map((input, index) => (
+              <div className="benefitInput" key={index}>
+                <label htmlFor={input.id}>{input.label}</label>
+                <input
+                  id={input.id}
+                  type={input.type}
+                  name={input.name}
+                  placeholder={input.placeholder} 
+                  onChange={handleInput}/>
+              </div>
+            ))}
+            <div className="benefitButton">
+              <p>Admins Only</p>
+              <button className="btn" type="submit">Submit</button>
+            </div>
+          </form>
+            
           <h1 className="title">Member Covered Beneficiary</h1>
           <List />
         </div>

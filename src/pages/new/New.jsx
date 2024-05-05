@@ -75,6 +75,7 @@ const New = ({ inputs, title }) => {
     const value = e.target.value;
 
     setData({ ...data, [id]: value });
+    
   };
 
   const handleAddNew = async (e) => {

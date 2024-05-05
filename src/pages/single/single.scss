@@ -72,7 +72,46 @@
       -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
       box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
       padding: 20px;
-      margin: 10px 20px;
+     margin: 10px 20px;
+     color: #555;
+
+     .benefitForm{
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: left;
+      margin: 1.2rem;
+      color: #555;
+
+      .benefitInput{
+        display: flex;
+        flex-direction: column;
+        
+        p{
+          color: red;
+          font-weight: bold;
+          font-size: 1em;
+          
+        }
+        
+      }
+      
+     }
+     .benefitButton{
+      display: flex;
+      flex-direction: column;
+      color: crimson;
+      .btn{
+        background-color: teal;
+        color: white;
+        border: none;
+        cursor: pointer;
+        padding: 0.4em;
+        border-radius: 4px;
+      }
+
+     }
     }
 
     .title {

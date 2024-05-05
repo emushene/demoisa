@@ -28,12 +28,10 @@ function App() {
           <Route path="/users">
             <Route index element={<RequireAuth><List /></RequireAuth>} />
             {/* Add the route configuration for Single component */}
-            <Route path=":id" element={<RequireAuth><Single /></RequireAuth>} />
+            <Route path=":id" element={<RequireAuth><Single inputs={familyInputs} title="Add Beneficiary"/></RequireAuth>} />
             <Route
-              path="new"
+             path="new"
               element={<RequireAuth><New inputs={userInputs} title="Add New User" /></RequireAuth>}
-              // path="add"
-              // element={<RequireAuth><Add inputs={familyInputs} title="Add New Cover" /></RequireAuth>}
             />
           </Route>
           <Route path="/products">

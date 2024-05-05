@@ -45,13 +45,13 @@ export const userInputs = [
   export const familyInputs = [
  
     {
-      id: "familyMemberName",
+      id: "name" ,
       label: "Name and surname",
       type: "text",
       placeholder: "Ledama Ole Kina",
     },
     {
-      id: "familyMemberAge",
+      id: "age",
       label: "Age",
       type: "date",
       placeholder: "2005-06-17",
@@ -61,6 +61,12 @@ export const userInputs = [
       label: "Relation to Member",
       type: "text",
       placeholder: "Sister, Brother, Father",
+    },
+       {
+      id: "location",
+      label: "Location",
+      type: "text",
+      placeholder: "Eldoret Kenya",
     },
 
   ];
